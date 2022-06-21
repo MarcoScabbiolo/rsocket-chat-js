@@ -1,2 +1,2 @@
-export * from './domain'
-export * from './services'
+export * from './domain/index.js'
+export * from './services/index.js'

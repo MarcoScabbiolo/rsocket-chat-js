@@ -1,8 +1,10 @@
-import { Field, Message, Type } from 'protobufjs'
+import protobuf from 'protobufjs'
 import { User } from '@rsocket-chat-js/core'
 
+const { Field, Type } = protobuf
+
 @Type.d('User')
-export class UserModel extends Message<UserModel> {
+export class UserModel extends protobuf.Message<UserModel> {
   @Field.d(1, 'string', 'required')
   public id = ''
 

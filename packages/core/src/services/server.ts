@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { User } from '../domain'
+import { User } from '../domain/index.js'
 
 export abstract class ChatServer {
   abstract start(): Promise<void>

@@ -3,6 +3,7 @@
     { "path": "./packages/core" },
     { "path": "./packages/serializer"},
     { "path": "./packages/server" },
-    { "path": "./packages/client" }
+    { "path": "./packages/client" },
+    { "path": "./packages/cli" }
   ]
 }

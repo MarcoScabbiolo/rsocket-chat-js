@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs'
-import { Message, User } from '../domain'
+import { Message, User } from '../domain/index.js'
 
 export abstract class ChatClient {
   private globalSubject = new Subject<Message>()

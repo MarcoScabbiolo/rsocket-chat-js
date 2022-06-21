@@ -2,6 +2,7 @@
   "name": "@rsocket-chat-js/cli",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc -b"
@@ -10,9 +11,16 @@
     "@rsocket-chat-js/client": "1.0.0",
     "@rsocket-chat-js/core": "1.0.0",
     "@rsocket-chat-js/server": "1.0.0",
+    "inquirer": "^9.0.0",
+    "rsocket-core": "1.0.0-alpha.1",
     "rsocket-tcp-client": "1.0.0-alpha.1",
-    "rsocket-tcp-server": "1.0.0-alpha.1"
+    "rsocket-tcp-server": "1.0.0-alpha.1",
+    "rsocket-websocket-client": "1.0.0-alpha.1",
+    "rsocket-websocket-server": "1.0.0-alpha.1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/inquirer": "^8.2.1"
+  }
 }

@@ -2,6 +2,7 @@
   "name": "@rsocket-chat-js/serializer",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc -b"
