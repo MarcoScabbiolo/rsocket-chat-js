@@ -40,9 +40,14 @@ importers:
 
   packages/core:
     specifiers:
+      '@types/uuid': ^8.3.4
       rxjs: ^7.5.5
+      uuid: ^8.3.2
     dependencies:
       rxjs: 7.5.5
+      uuid: 8.3.2
+    devDependencies:
+      '@types/uuid': 8.3.4
 
   packages/eslint-config-custom:
     specifiers:
@@ -77,18 +82,13 @@ importers:
     specifiers:
       '@rsocket-chat-js/core': 1.0.0
       '@rsocket-chat-js/serializer': 1.0.0
-      '@types/uuid': ^8.3.4
       rsocket-core: 1.0.0-alpha.1
       rxjs: ^7.5.5
-      uuid: ^8.3.2
     dependencies:
       '@rsocket-chat-js/core': link:../core
       '@rsocket-chat-js/serializer': link:../serializer
       rsocket-core: 1.0.0-alpha.1
       rxjs: 7.5.5
-      uuid: 8.3.2
-    devDependencies:
-      '@types/uuid': 8.3.4
 
   packages/tsconfig:
     specifiers: {}

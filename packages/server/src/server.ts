@@ -1,4 +1,4 @@
-import { ChatServer, ResponseType, User } from '@rsocket-chat-js/core'
+import { ChatServer, ResponseType } from '@rsocket-chat-js/core'
 import {
   serialize,
   serializeResponseType,
@@ -15,19 +15,17 @@ import {
   ServerTransport,
 } from 'rsocket-core'
 import { noop } from 'rxjs'
-import { v4 as uuid } from 'uuid'
 
 type ResponderStream = OnTerminalSubscriber &
   OnNextSubscriber &
   OnExtensionSubscriber
 
-export class RSocketChatServer implements ChatServer {
+export class RSocketChatServer extends ChatServer {
   private server: RSocketServer
   private stopper?: Closeable
 
-  private identifiedUsers = new Map<string, User>()
-
   constructor(transport: ServerTransport) {
+    super()
     this.server = new RSocketServer({
       transport,
       acceptor: {
@@ -40,7 +38,7 @@ export class RSocketChatServer implements ChatServer {
 
             switch (responseType) {
               case ResponseType.Identify:
-                return this.identifyUser(payload, responderStream)
+                return this.handleIdentifyUser(payload, responderStream)
               default:
                 throw new Error('unknown response type')
             }
@@ -58,7 +56,7 @@ export class RSocketChatServer implements ChatServer {
     this.stopper?.close()
   }
 
-  private identifyUser(
+  private handleIdentifyUser(
     payload: Payload,
     responderStream: ResponderStream
   ): Cancellable & OnExtensionSubscriber {
@@ -66,10 +64,7 @@ export class RSocketChatServer implements ChatServer {
     if (!name) {
       throw new Error('Must provide a name')
     }
-    const user: User = {
-      id: uuid(),
-      name,
-    }
+    const user = this.identifyUser(name)
     responderStream.onNext(
       {
         data: serialize(UserModel.fromObject(user)),
