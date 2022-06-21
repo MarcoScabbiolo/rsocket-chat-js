@@ -3,6 +3,7 @@
   "include": ["./src/**/*.ts"],
   "compilerOptions": {
     "composite": true,
+    "rootDir": "./src",
     "outDir": "./lib",
     "isolatedModules": false
   }
