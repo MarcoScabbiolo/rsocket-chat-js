@@ -1,0 +1,14 @@
+{
+  "name": "@rsocket-chat-js/core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^7.5.5"
+  }
+}

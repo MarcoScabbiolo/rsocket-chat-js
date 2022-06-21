@@ -1,0 +1,18 @@
+{
+  "name": "@rsocket-chat-js/cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@rsocket-chat-js/client": "1.0.0",
+    "@rsocket-chat-js/core": "1.0.0",
+    "@rsocket-chat-js/server": "1.0.0",
+    "rsocket-tcp-client": "1.0.0-alpha.1",
+    "rsocket-tcp-server": "1.0.0-alpha.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
