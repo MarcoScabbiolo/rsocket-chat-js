@@ -10,6 +10,7 @@
   "dependencies": {
     "@rsocket-chat-js/core": "1.0.0",
     "@rsocket-chat-js/serializer": "1.0.0",
+    "rsocket-adapter-rxjs": "1.0.0-alpha.2",
     "rsocket-core": "1.0.0-alpha.1",
     "rxjs": "^7.5.5"
   },

@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@rsocket-chat-js/core": "1.0.0",
-    "protobufjs": "^6.11.3"
+    "protobufjs": "^6.11.3",
+    "rsocket-messaging": "1.0.0-alpha.2"
   },
   "devDependencies": {
     "@types/node": "^18.0.0"

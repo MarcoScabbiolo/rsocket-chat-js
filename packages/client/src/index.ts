@@ -1,7 +1,12 @@
 import { ChatClient, ResponseType, User } from '@rsocket-chat-js/core'
-import { UserModel, serializeResponseType } from '@rsocket-chat-js/serializer'
+import {
+  serializeResponseType,
+  textCodec,
+  userCodec,
+} from '@rsocket-chat-js/serializer'
 import { ClientTransport, RSocket, RSocketConnector } from 'rsocket-core'
-import { noop } from 'rxjs'
+import { noop, Observable } from 'rxjs'
+import { RxRequestersFactory } from 'rsocket-adapter-rxjs'
 
 export default class RSocketChatClient extends ChatClient {
   private connector: RSocketConnector
@@ -34,7 +39,7 @@ export default class RSocketChatClient extends ChatClient {
     return new Promise((resolve, reject) => {
       this.socket.requestResponse(
         {
-          data: Buffer.from(name),
+          data: textCodec.encode(name),
           metadata: serializeResponseType(ResponseType.Identify),
         },
         {
@@ -45,12 +50,20 @@ export default class RSocketChatClient extends ChatClient {
               reject(new Error('No data'))
               return
             }
-            resolve(UserModel.decode(data).toDomain())
+            resolve(userCodec.decode(data))
           },
           onComplete: noop,
           onExtension: noop,
         }
       )
     })
+  }
+
+  protected requestInfo(userId: string): Observable<string> {
+    return RxRequestersFactory.requestStream(
+      userId,
+      textCodec,
+      textCodec
+    )(this.socket, new Map())
   }
 }

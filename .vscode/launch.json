@@ -13,7 +13,7 @@
       "preLaunchTask": "npm: build",
       "console": "integratedTerminal",
       "outFiles": [
-        "${workspaceFolder}/packages/cli/lib/**/*.js"
+        "${workspaceFolder}/packages/**/lib/**/*.js"
       ]
     }
   ]

@@ -4,9 +4,11 @@ import { ClientTransport } from 'rsocket-core'
 import { TcpClientTransport } from 'rsocket-tcp-client'
 import { WebsocketClientTransport } from 'rsocket-websocket-client'
 import { Transport } from './domain/questions.js'
+import { Subscription } from 'rxjs'
 
 export class CliChat {
   private client: RSocketChatClient
+  private subscription = new Subscription()
 
   constructor(transport: Transport, host: string, port: number) {
     let transporter: ClientTransport
@@ -27,6 +29,12 @@ export class CliChat {
     }
 
     this.client = new RSocketChatClient(transporter)
+
+    this.wire()
+  }
+
+  wire(): void {
+    this.subscription.add(this.client.info.subscribe(console.log))
   }
 
   async start(): Promise<void> {

@@ -24,6 +24,7 @@ importers:
       rsocket-tcp-server: 1.0.0-alpha.1
       rsocket-websocket-client: 1.0.0-alpha.1
       rsocket-websocket-server: 1.0.0-alpha.1
+      rxjs: ^7.5.5
     dependencies:
       '@rsocket-chat-js/client': link:../client
       '@rsocket-chat-js/core': link:../core
@@ -34,6 +35,7 @@ importers:
       rsocket-tcp-server: 1.0.0-alpha.1
       rsocket-websocket-client: 1.0.0-alpha.1
       rsocket-websocket-server: 1.0.0-alpha.1
+      rxjs: 7.5.5
     devDependencies:
       '@types/inquirer': 8.2.1
 
@@ -41,11 +43,13 @@ importers:
     specifiers:
       '@rsocket-chat-js/core': 1.0.0
       '@rsocket-chat-js/serializer': 1.0.0
+      rsocket-adapter-rxjs: 1.0.0-alpha.2
       rsocket-core: 1.0.0-alpha.1
       rxjs: ^7.5.5
     dependencies:
       '@rsocket-chat-js/core': link:../core
       '@rsocket-chat-js/serializer': link:../serializer
+      rsocket-adapter-rxjs: 1.0.0-alpha.2
       rsocket-core: 1.0.0-alpha.1
       rxjs: 7.5.5
 
@@ -83,9 +87,11 @@ importers:
       '@rsocket-chat-js/core': 1.0.0
       '@types/node': ^18.0.0
       protobufjs: ^6.11.3
+      rsocket-messaging: 1.0.0-alpha.2
     dependencies:
       '@rsocket-chat-js/core': link:../core
       protobufjs: 6.11.3
+      rsocket-messaging: 1.0.0-alpha.2
     devDependencies:
       '@types/node': 18.0.0
 
@@ -93,11 +99,13 @@ importers:
     specifiers:
       '@rsocket-chat-js/core': 1.0.0
       '@rsocket-chat-js/serializer': 1.0.0
+      rsocket-adapter-rxjs: 1.0.0-alpha.2
       rsocket-core: 1.0.0-alpha.1
       rxjs: ^7.5.5
     dependencies:
       '@rsocket-chat-js/core': link:../core
       '@rsocket-chat-js/serializer': link:../serializer
+      rsocket-adapter-rxjs: 1.0.0-alpha.2
       rsocket-core: 1.0.0-alpha.1
       rxjs: 7.5.5
 
@@ -1189,8 +1197,29 @@ packages:
       glob: 7.2.3
     dev: false
 
+  /rsocket-adapter-rxjs/1.0.0-alpha.2:
+    resolution: {integrity: sha512-3SBmIdnQ0InGoLJyl9i3cQRDNA5es0C71G4SOZCmZTPAZ0rFw87XlZ9+yGxOCGKWZSnNQWmhW5PAJfkBu0Kpcw==}
+    dependencies:
+      rsocket-core: 1.0.0-alpha.1
+      rsocket-messaging: 1.0.0-alpha.2
+      rxjs: 7.5.5
+    dev: false
+
+  /rsocket-composite-metadata/1.0.0-alpha.2:
+    resolution: {integrity: sha512-zaEQ28VkGwzpMQPuI+SFJK5EqrYWsaI0qr5IG2DiFlloRE3VW9YmyM+yj98qon+kTCQ05WjH+GdlFs3SrU1pVg==}
+    dependencies:
+      rsocket-core: 1.0.0-alpha.1
+    dev: false
+
   /rsocket-core/1.0.0-alpha.1:
     resolution: {integrity: sha512-xStK9VyEScp1abXRKlUhdswebPA8FSmhDpKhc2oExazLoIxLu8mJa89iMcs3+0DCC6ENOVXLJKhY5zXMNI/JQA==}
+    dev: false
+
+  /rsocket-messaging/1.0.0-alpha.2:
+    resolution: {integrity: sha512-Z6xhxMydeEWuCjUtGbICnqCiTEsspCr5AbPceWk9JZ3fSn6CH48rmH6nhQCK8uFG2ehrv5s95iVFRAyX4aCujA==}
+    dependencies:
+      rsocket-composite-metadata: 1.0.0-alpha.2
+      rsocket-core: 1.0.0-alpha.1
     dev: false
 
   /rsocket-tcp-client/1.0.0-alpha.1:

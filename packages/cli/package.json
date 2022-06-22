@@ -16,7 +16,8 @@
     "rsocket-tcp-client": "1.0.0-alpha.1",
     "rsocket-tcp-server": "1.0.0-alpha.1",
     "rsocket-websocket-client": "1.0.0-alpha.1",
-    "rsocket-websocket-server": "1.0.0-alpha.1"
+    "rsocket-websocket-server": "1.0.0-alpha.1",
+    "rxjs": "^7.5.5"
   },
   "author": "",
   "license": "ISC",

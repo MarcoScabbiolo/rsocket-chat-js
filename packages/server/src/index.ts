@@ -1,8 +1,8 @@
 import { ChatServer, ResponseType } from '@rsocket-chat-js/core'
 import {
-  serialize,
   serializeResponseType,
-  UserModel,
+  userCodec,
+  textCodec,
 } from '@rsocket-chat-js/serializer'
 import {
   Cancellable,
@@ -15,6 +15,7 @@ import {
   ServerTransport,
 } from 'rsocket-core'
 import { noop } from 'rxjs'
+import { RxRespondersFactory } from 'rsocket-adapter-rxjs'
 
 type ResponderStream = OnTerminalSubscriber &
   OnNextSubscriber &
@@ -43,6 +44,10 @@ export default class RSocketChatServer extends ChatServer {
                 throw new Error('unknown response type')
             }
           },
+          requestStream: RxRespondersFactory.requestStream(
+            this.subscribeToInfo,
+            { inputCodec: textCodec, outputCodec: textCodec }
+          ),
         }),
       },
     })
@@ -67,7 +72,7 @@ export default class RSocketChatServer extends ChatServer {
     const user = this.identifyUser(name)
     responderStream.onNext(
       {
-        data: serialize(UserModel.fromObject(user)),
+        data: userCodec.encode(user),
         metadata: serializeResponseType(ResponseType.Identify),
       },
       true
