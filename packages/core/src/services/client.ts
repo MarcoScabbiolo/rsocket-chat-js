@@ -22,4 +22,8 @@ export abstract class ChatClient {
   sendMessage(mesasge: string): void {
     throw new Error('Method not implemented.')
   }
+
+  validateName(name: string): boolean {
+    return /^([a-zA-Z0-9]|-)+$/.test(name)
+  }
 }

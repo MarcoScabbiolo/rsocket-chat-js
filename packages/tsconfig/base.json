@@ -10,6 +10,7 @@
     "experimentalDecorators": true,
     "inlineSources": false,
     "isolatedModules": true,
+    "sourceMap": true,
     "moduleResolution": "node",
     "noUnusedLocals": false,
     "noUnusedParameters": false,

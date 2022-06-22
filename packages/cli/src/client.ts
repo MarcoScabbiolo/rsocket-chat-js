@@ -34,9 +34,8 @@ export class CliChat {
       name: 'name',
       message: 'What is your username?',
       validate: (name) =>
-        /$([a-zA-Z0-9]|(-))+/.test(name)
-          ? true
-          : 'Only letters, numbers or "-"s allowed',
+        this.client.validateName(name) ||
+        'Only letters, numbers or "-"s allowed',
     })
 
     await this.client.connect(name)
