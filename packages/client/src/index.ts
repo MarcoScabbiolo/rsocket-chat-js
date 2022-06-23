@@ -1,8 +1,9 @@
-import { ChatClient, ResponseType, User } from '@rsocket-chat-js/core'
+import { ChatClient, Message, ResponseType, User } from '@rsocket-chat-js/core'
 import {
   serializeResponseType,
   textCodec,
   userCodec,
+  messageCodec,
 } from '@rsocket-chat-js/serializer'
 import { ClientTransport, RSocket, RSocketConnector } from 'rsocket-core'
 import { noop, Observable } from 'rxjs'
@@ -65,5 +66,16 @@ export default class RSocketChatClient extends ChatClient {
       textCodec,
       textCodec
     )(this.socket, new Map())
+  }
+
+  protected subscribeToGlobal(
+    userId: string,
+    outgoing: Observable<string>
+  ): Observable<Message> {
+    return RxRequestersFactory.requestChannel(
+      outgoing,
+      textCodec,
+      messageCodec
+    )(this.socket, new Map([['user', textCodec.encode(userId)]]))
   }
 }

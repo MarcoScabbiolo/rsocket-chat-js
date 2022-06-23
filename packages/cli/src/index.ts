@@ -15,8 +15,8 @@ const main = async () => {
       message: 'Host your own chat server or join an existing one',
       type: 'list',
       choices: [
-        { value: CliMode.Server, name: 'Host' },
         { value: CliMode.Client, name: 'Join' },
+        { value: CliMode.Server, name: 'Host' },
       ],
     },
     {
@@ -33,6 +33,7 @@ const main = async () => {
       message: ({ mode }) =>
         `Host to ${mode === CliMode.Client ? 'connect' : 'listen'} to`,
       type: 'input',
+      default: 'localhost',
     },
     {
       name: 'port',
@@ -44,6 +45,7 @@ const main = async () => {
         !Number.isNaN(number) && number > 0
           ? true
           : 'Please provide a valid port number',
+      default: 3000,
     },
   ])
 

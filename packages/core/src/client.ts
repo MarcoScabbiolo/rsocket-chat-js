@@ -1,14 +1,15 @@
 import { Observable, Subject, Subscription } from 'rxjs'
-import { Message, User } from '../domain/index.js'
+import { Message, User } from './domain/index.js'
 
 export abstract class ChatClient {
   private subscription = new Subscription()
-  private globalSubject = new Subject<Message>()
+  private incomingGlobalSubject = new Subject<Message>()
+  private outgoingGlobalSubject = new Subject<string>()
   private infoSubject = new Subject<string>()
   private me?: User
 
   constructor() {
-    this.global = this.globalSubject
+    this.global = this.incomingGlobalSubject
     this.info = this.infoSubject
   }
 
@@ -18,6 +19,10 @@ export abstract class ChatClient {
   protected abstract initiateTransport(): Promise<void>
   protected abstract requestIdentify(name: string): Promise<User>
   protected abstract requestInfo(userId: string): Observable<string>
+  protected abstract subscribeToGlobal(
+    userId: string,
+    outgoing: Observable<string>
+  ): Observable<Message>
 
   async connect(name: string): Promise<void> {
     await this.initiateTransport()
@@ -25,10 +30,15 @@ export abstract class ChatClient {
     this.subscription.add(
       this.requestInfo(this.me.id).subscribe(this.infoSubject)
     )
+    this.subscription.add(
+      this.subscribeToGlobal(this.me.id, this.outgoingGlobalSubject).subscribe(
+        this.incomingGlobalSubject
+      )
+    )
   }
 
-  sendMessage(mesasge: string): void {
-    throw new Error('Method not implemented.')
+  sendMessage(message: string): void {
+    this.outgoingGlobalSubject?.next(message)
   }
 
   validateName(name: string): boolean {

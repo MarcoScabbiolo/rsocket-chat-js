@@ -4,11 +4,18 @@ import { ClientTransport } from 'rsocket-core'
 import { TcpClientTransport } from 'rsocket-tcp-client'
 import { WebsocketClientTransport } from 'rsocket-websocket-client'
 import { Transport } from './domain/questions.js'
-import { Subscription } from 'rxjs'
+import { map, Subscription } from 'rxjs'
+import readline from 'node:readline'
+import chalk from 'chalk'
+import { Message } from '@rsocket-chat-js/core'
+
+const formatMessage = (message: Message): string =>
+  `${chalk.bold(message.from.name)}: ${message.content}`
 
 export class CliChat {
   private client: RSocketChatClient
   private subscription = new Subscription()
+  private running = true
 
   constructor(transport: Transport, host: string, port: number) {
     let transporter: ClientTransport
@@ -34,7 +41,14 @@ export class CliChat {
   }
 
   wire(): void {
-    this.subscription.add(this.client.info.subscribe(console.log))
+    this.subscription.add(
+      this.client.info
+        .pipe(map((text) => chalk.inverse(` ${text} `)))
+        .subscribe(console.log)
+    )
+    this.subscription.add(
+      this.client.global.pipe(map(formatMessage)).subscribe(console.log)
+    )
   }
 
   async start(): Promise<void> {
@@ -47,5 +61,19 @@ export class CliChat {
     })
 
     await this.client.connect(name)
+
+    const rl = readline.createInterface(process.stdin)
+
+    const read = () =>
+      rl.question('', (message) => {
+        readline.moveCursor(process.stdout, 0, -1)
+        this.client.sendMessage(message)
+        console.log(formatMessage({ content: message, from: { name, id: '' } }))
+        if (this.running) {
+          read()
+        }
+      })
+
+    read()
   }
 }

@@ -3,6 +3,8 @@ import {
   serializeResponseType,
   userCodec,
   textCodec,
+  messageCodec,
+  decodeChannelMetadata,
 } from '@rsocket-chat-js/serializer'
 import {
   Cancellable,
@@ -48,6 +50,28 @@ export default class RSocketChatServer extends ChatServer {
             this.subscribeToInfo,
             { inputCodec: textCodec, outputCodec: textCodec }
           ),
+          requestChannel: (payload, ...rest) => {
+            const metadata = payload.metadata
+
+            if (!metadata) {
+              throw new Error('No metadata found')
+            }
+
+            const userIdBuffer = decodeChannelMetadata(metadata)?.[0]?.content
+
+            if (!userIdBuffer) {
+              throw new Error('Must provide a user id')
+            }
+            const userId = textCodec.decode(userIdBuffer)
+
+            return RxRespondersFactory.requestChannel(
+              (incoming) => this.subscribeToGlobal(userId, incoming),
+              {
+                inputCodec: textCodec,
+                outputCodec: messageCodec,
+              }
+            )(payload, ...rest)
+          },
         }),
       },
     })

@@ -11,11 +11,12 @@ Made it mainly to try RSocket out
 - TCP transport
 - User identification
 - Broadcasts from server
+- Broadcasts from users (general chat)
 
 ## TODO list:
 
+- BUG: some of the first messages are ignored
 - WebSockets transport (should work, didnt test it)
-- Broadcasts from users (general chat)
 - 1-1 messages (PMs)
 - Channel self-management by users (create, join, leave, destroy)
 - Read-only channels

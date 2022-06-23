@@ -11,6 +11,7 @@
     "@rsocket-chat-js/client": "1.0.0",
     "@rsocket-chat-js/core": "1.0.0",
     "@rsocket-chat-js/server": "1.0.0",
+    "chalk": "^5.0.1",
     "inquirer": "^9.0.0",
     "rsocket-core": "1.0.0-alpha.1",
     "rsocket-tcp-client": "1.0.0-alpha.1",

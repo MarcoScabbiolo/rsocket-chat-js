@@ -1,4 +1,10 @@
 {
   "npm.packageManager": "pnpm",
-  "typescript.preferences.importModuleSpecifierEnding": "js"
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/lib": true
+  }
 }

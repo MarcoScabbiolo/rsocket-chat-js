@@ -18,6 +18,7 @@ importers:
       '@rsocket-chat-js/core': 1.0.0
       '@rsocket-chat-js/server': 1.0.0
       '@types/inquirer': ^8.2.1
+      chalk: ^5.0.1
       inquirer: ^9.0.0
       rsocket-core: 1.0.0-alpha.1
       rsocket-tcp-client: 1.0.0-alpha.1
@@ -29,6 +30,7 @@ importers:
       '@rsocket-chat-js/client': link:../client
       '@rsocket-chat-js/core': link:../core
       '@rsocket-chat-js/server': link:../server
+      chalk: 5.0.1
       inquirer: 9.0.0
       rsocket-core: 1.0.0-alpha.1
       rsocket-tcp-client: 1.0.0-alpha.1
@@ -87,10 +89,12 @@ importers:
       '@rsocket-chat-js/core': 1.0.0
       '@types/node': ^18.0.0
       protobufjs: ^6.11.3
+      rsocket-composite-metadata: 1.0.0-alpha.2
       rsocket-messaging: 1.0.0-alpha.2
     dependencies:
       '@rsocket-chat-js/core': link:../core
       protobufjs: 6.11.3
+      rsocket-composite-metadata: 1.0.0-alpha.2
       rsocket-messaging: 1.0.0-alpha.2
     devDependencies:
       '@types/node': 18.0.0

@@ -12,6 +12,7 @@
   "dependencies": {
     "@rsocket-chat-js/core": "1.0.0",
     "protobufjs": "^6.11.3",
+    "rsocket-composite-metadata": "1.0.0-alpha.2",
     "rsocket-messaging": "1.0.0-alpha.2"
   },
   "devDependencies": {

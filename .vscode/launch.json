@@ -14,7 +14,8 @@
       "console": "integratedTerminal",
       "outFiles": [
         "${workspaceFolder}/packages/**/lib/**/*.js"
-      ]
+      ],
+      "skipFiles": []
     }
   ]
 }
