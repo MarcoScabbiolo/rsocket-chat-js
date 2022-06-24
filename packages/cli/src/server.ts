@@ -7,7 +7,8 @@ import { Transport } from './domain/questions.js'
 export const runServer = async (
   transport: Transport,
   host: string,
-  port: number
+  port: number,
+  verbose: boolean
 ) => {
   let transporter: ServerTransport
 
@@ -27,7 +28,7 @@ export const runServer = async (
     throw new Error('Unknown transport ' + transport)
   }
 
-  const server = new RSocketChatServer(transporter)
+  const server = new RSocketChatServer(transporter, verbose)
 
   await server.start()
 

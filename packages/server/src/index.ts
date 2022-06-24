@@ -27,8 +27,8 @@ export default class RSocketChatServer extends ChatServer {
   private server: RSocketServer
   private stopper?: Closeable
 
-  constructor(transport: ServerTransport) {
-    super()
+  constructor(transport: ServerTransport, verbose?: boolean) {
+    super(verbose)
     this.server = new RSocketServer({
       transport,
       acceptor: {

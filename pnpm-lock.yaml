@@ -19,6 +19,7 @@ importers:
       '@rsocket-chat-js/server': 1.0.0
       '@types/inquirer': ^8.2.1
       chalk: ^5.0.1
+      commander: ^9.3.0
       inquirer: ^9.0.0
       rsocket-core: 1.0.0-alpha.1
       rsocket-tcp-client: 1.0.0-alpha.1
@@ -31,6 +32,7 @@ importers:
       '@rsocket-chat-js/core': link:../core
       '@rsocket-chat-js/server': link:../server
       chalk: 5.0.1
+      commander: 9.3.0
       inquirer: 9.0.0
       rsocket-core: 1.0.0-alpha.1
       rsocket-tcp-client: 1.0.0-alpha.1
@@ -519,6 +521,11 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    dev: false
+
+  /commander/9.3.0:
+    resolution: {integrity: sha512-hv95iU5uXPbK83mjrJKuZyFM/LBAoCV/XhVGkS5Je6tl7sxr6A0ITMw5WoRV46/UaJ46Nllm3Xt7IaJhXTIkzw==}
+    engines: {node: ^12.20.0 || >=14}
     dev: false
 
   /concat-map/0.0.1:

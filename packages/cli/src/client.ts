@@ -4,7 +4,7 @@ import { ClientTransport } from 'rsocket-core'
 import { TcpClientTransport } from 'rsocket-tcp-client'
 import { WebsocketClientTransport } from 'rsocket-websocket-client'
 import { Transport } from './domain/questions.js'
-import { map, Subscription } from 'rxjs'
+import { map, merge, Subscription } from 'rxjs'
 import readline from 'node:readline'
 import chalk from 'chalk'
 import { Message } from '@rsocket-chat-js/core'
@@ -17,7 +17,12 @@ export class CliChat {
   private subscription = new Subscription()
   private running = true
 
-  constructor(transport: Transport, host: string, port: number) {
+  constructor(
+    transport: Transport,
+    host: string,
+    port: number,
+    verbose: boolean
+  ) {
     let transporter: ClientTransport
 
     if (transport === Transport.Tcp) {
@@ -35,19 +40,18 @@ export class CliChat {
       throw new Error('Unknown transport ' + transport)
     }
 
-    this.client = new RSocketChatClient(transporter)
+    this.client = new RSocketChatClient(transporter, verbose)
 
     this.wire()
   }
 
   wire(): void {
     this.subscription.add(
-      this.client.info
-        .pipe(map((text) => chalk.inverse(` ${text} `)))
-        .subscribe(console.log)
-    )
-    this.subscription.add(
-      this.client.global.pipe(map(formatMessage)).subscribe(console.log)
+      merge(
+        this.client.debug.pipe(map((text) => chalk.dim(text))),
+        this.client.info.pipe(map((text) => chalk.inverse(` ${text} `))),
+        this.client.global.pipe(map(formatMessage))
+      ).subscribe(console.log)
     )
   }
 

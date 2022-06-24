@@ -2,6 +2,12 @@ import inquirer from 'inquirer'
 import { CliMode, Transport } from './domain/questions.js'
 import { runServer } from './server.js'
 import { CliChat } from './client.js'
+import { program } from 'commander'
+
+const { verbose }: { verbose: boolean } = program
+  .option('--verbose')
+  .parse()
+  .opts()
 
 const main = async () => {
   const { mode, transport, host, port } = await inquirer.prompt<{
@@ -50,9 +56,9 @@ const main = async () => {
   ])
 
   if (mode === CliMode.Server) {
-    await runServer(transport, host, port)
+    await runServer(transport, host, port, verbose)
   } else if (mode === CliMode.Client) {
-    await new CliChat(transport, host, port).start()
+    await new CliChat(transport, host, port, verbose).start()
   } else {
     throw new Error('Unknown mode ' + mode)
   }

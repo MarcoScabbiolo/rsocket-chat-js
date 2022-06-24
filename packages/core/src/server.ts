@@ -13,10 +13,18 @@ export abstract class ChatServer {
 
   global: Observable<Message>
 
-  constructor() {
+  constructor(private verbose: boolean = false) {
     this.subscribeToInfo = this.subscribeToInfo.bind(this)
     this.subscribeToGlobal = this.subscribeToGlobal.bind(this)
     this.global = this.globalSubject
+
+    if (this.verbose) {
+      this.subscription.add(
+        this.global.subscribe((message) => {
+          this.log(`Message from ${message.from.id}: ${message.content}`)
+        })
+      )
+    }
   }
 
   protected identifyUser(name: string): User {
@@ -25,6 +33,7 @@ export abstract class ChatServer {
       name,
     }
 
+    this.log(`User ${user.id} identified as ${name}`)
     this.identifiedUsers.set(user.id, user)
     return user
   }
@@ -32,6 +41,7 @@ export abstract class ChatServer {
   protected subscribeToInfo(userId: string): Observable<string> {
     const subject = new Subject<string>()
     this.info.set(userId, subject)
+    this.log(`User ${userId} subscribed to info`)
     return subject.pipe(startWith('Welcome to the chat!'))
   }
 
@@ -48,10 +58,14 @@ export abstract class ChatServer {
         .pipe(map((content): Message => ({ content, from: user })))
         .subscribe(this.globalSubject)
     )
+
+    this.log(`User ${userId} subscribed to global`)
     return this.global.pipe(filter((message) => message.from.id !== userId))
   }
 
-  protected globalMessage(from: User, content: string): void {
-    this.globalSubject.next({ from, content })
+  protected log(message: string): void {
+    if (this.verbose) {
+      console.log(message)
+    }
   }
 }

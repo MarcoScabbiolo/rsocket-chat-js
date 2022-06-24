@@ -21,8 +21,8 @@ export default class RSocketChatClient extends ChatClient {
     return instance
   }
 
-  constructor(transport: ClientTransport) {
-    super()
+  constructor(transport: ClientTransport, verbose?: boolean) {
+    super(verbose)
     this.connector = new RSocketConnector({
       setup: {
         keepAlive: 100,
